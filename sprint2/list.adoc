@@ -1,0 +1,5 @@
+= Sprint 2
+
+== Story #7328 - ARGO component
+
+=== link:story7328/argocomp.html[Task #7328: ARGOcomponent]

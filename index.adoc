@@ -1,0 +1,47 @@
+= Argo project
+:icons: font
+:toc:
+:numbered:
+
+Etudes, tâches, etc.
+
+== link:sprint0/list.html[Sprint 0]
+
+== link:sprint2/list.adoc[Sprint 2]
+== Readme
+* Attention: sur Forge, même un contributeur du projet n'a pas les droits sur ce répertoire PAR Défaut.
+Contactez votre administrateur !
+* la mise à jour de ces pages se fait via git
+* sur son PC : git clone ssh://forge.b-com.com/home/groups/argo/htdocs/website.git website
+** crée un répertoire "website" clonant le site web complet
+* cd website
+* on modifie, crée, les .adoc de son choix
+* quand c'est terminé :
+* asciidoctor -n -s <fichier.adoc> (pour chaque fichier adoc ajouté/modifié) => génère un .html
+** avec un bash : find . -name "*adoc" -exec asciidoctor -n -s {} \
+*** pour mise à jour de tous les .adoc
+** git add -A
+** git commit -m "message de commit"
+** git push origin master
+
+WARNING: on ne travaille ici que sur une seule branche (master)
+
+
+== Annexe
+Pour mémoire, afin de permettre la gestion du site web via git, il a fallu:
+
+* créer localement un dépot git : git init
+** y ajouter les fichiers qu'on veut, puis add, commit
+* sur le serveur distant :
+** création d'un répertoire website.git
+** dans ce répertoire : git init --bare
+** création d'un fichier hooks/post-receive contenant :
+
+  #!/bin/sh
+  GIT_WORK_TREE=/home/groups/argo/htdocs git checkout -f
+
+** chmod +x hooks/post-receive
+* localement :
+
+ git remote add web ssh://forge.b-com.com/home/groups/argo/htdocs/website.git
+ git push web +master:refs/heads/master

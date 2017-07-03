@@ -1,0 +1,82 @@
+= Git workflow for ARGO Project
+:toc:
+:numbered:
+
+== Links
+
+see. https://forge.b-com.com/file/download.php/129/295/p30_r113/bcom-Git-branching-model.pdf
+for git bcom git branching model
+
+== git configuration
+
+ajouter dans ~/.gitconfig :
+
+ [branch "master"]
+    mergeoptions = --no-ff
+
+ [alias]
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yelow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    lg = !"git lg1"
+
+
+== Commandes
+
+(starting from a new and empty repository)
+
+=== création du dépot, initialisation de la branche master
+* git clone ssh://...
+* git commit -m "initial commit"
+** commit initial sur branche master
+
+=== création de la branche develop (conservant l'historique du projet)
+* git checkout -b develop master
+* git push origin develop
+** création de la branche develop sur le repository
+** création de la branche develop à partir de la branche master
+
+=== nouvelle fonctionnalité, création en local d'une branche feature/feature1
+* git checkout -b feature/feature1 develop
+** création de la branche feature/feature1 à partir de la branche develop
+* git commit ...
+** quelques commit sur la branche feature/feature1
+
+=== création de la branche feature sur le repository, push réguliers
+* git push -u origin feature/test
+** pousse la branche feature/test sur le repository
+** -u la positionne en tracking branch
+* ensuite git push pourra être appelé quotidiennement sans paramètre pour updater la branche feature/test sur le dépot
+
+=== fusion de feature/test avec branche develop sur le dépot
+* il faudra actualiser sa branche locale feature/test en la rebasant sur la version distante de develop
+** git checkout feature/test
+** git pull --rebase origin develop
+*** des conflits peuvent survenir, ils bloqueront le rebase en cours
+*** il faut les résoudre fichier par fichier
+*** puis valider la résolution du conflit en faisant git add <fichier>
+*** puis finaliser le rebase via git rebase --continue
+
+* la branche feature/test est alors prête à être soumise via pull request
+** sur la forge, on demande sa fusion dans la branche develop via pull request entre :
+** source : feature/feature1
+** destination : develop
+
+== Branching model
+
+Argo will respect the following branches model:
+
+* a master branch
+* a develop branch
+* "features" branches
+
+== Workflow
+
+=== Cloning the repository
+
+
+
+== Tutorial
+
+. step 1
+
+- git clone
