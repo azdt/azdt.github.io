@@ -1,5 +1,0 @@
-= Sprint 0
-
-== Story #7630 - source versioning
-
-=== link:story-7630-source-versioning/task-7725-git-user-guide.html[Task #7725: Git user guide]

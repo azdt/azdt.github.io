@@ -1,9 +1,0 @@
-= Argo project
-:toc:
-:numbered:
-
-Etudes, tâches, etc.
-
-
-
-== link:sprint0/list.html[Sprint 0]
